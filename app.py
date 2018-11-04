@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/api/v1/info", methods=['GET'])
 def home_index():
-    db = pymysql.connect("localhost", "root", "123456", "mydb")
+    db = pymysql.connect("114.116.74.221", "root", "Huawei12#$", "mydb")
     cursor = db.cursor()
     logging.debug("connect mydb success!")
 
