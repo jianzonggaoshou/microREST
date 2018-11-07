@@ -70,5 +70,14 @@ def list_users():
     return jsonify({'user_list': api_list}), 200
 
 
+@app.route('/api/v1/users/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    return list_user(user_id)
+
+
+def list_user(user_id):
+    pass
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
