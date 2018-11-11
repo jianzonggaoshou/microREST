@@ -155,7 +155,7 @@ def add_user(new_user):
 
     try:
         if not data:
-            sql = 'INSERT INTO usesrs(username, email, password, full_name) VALUES ("%s", "%s", "%s", "%s")' \
+            sql = 'INSERT INTO users(username, email, password, full_name) VALUES ("%s", "%s", "%s", "%s")' \
                   % (new_user['username'], new_user['email'], new_user['password'], new_user['full_name'])
             logging.debug(sql)
             cursor.execute(sql)
