@@ -121,6 +121,9 @@ def add_user(new_user):
             logging.debug(sql)
             cursor.execute(sql)
             db.commit()
+            return True
+        else:
+            return False
     except Exception as e:
         db.rollback()
         logging.debug("%s failed!" % sql)
@@ -128,4 +131,39 @@ def add_user(new_user):
         traceback.print_exc()
 
     db.close()
-    return True
+
+
+def del_user(del_user):
+    db = pymysql.connect(mysqlCon.db_url, mysqlCon.db_username, mysqlCon.db_password, mysqlCon.db_name)
+    cursor = db.cursor()
+    logging.debug("connect mydb success!")
+
+    sql = ''
+    data = ()
+    try:
+        sql = 'SELECT * FROM users WHERE username="%s" ' % del_user
+        logging.debug(sql)
+        cursor.execute(sql)
+        data = cursor.fetchall()
+        logging.debug(data)
+    except Exception as e:
+        logging.debug("%s failed!" % sql)
+        logging.debug(e)
+        traceback.print_exc()
+
+    try:
+        if data:
+            sql = 'DELETE FROM users WHERE username="%s"' % del_user
+            logging.debug(sql)
+            cursor.execute(sql)
+            db.commit()
+            return True
+        else:
+            return False
+    except Exception as e:
+        db.rollback()
+        logging.debug("%s failed!" % sql)
+        logging.debug(e)
+        traceback.print_exc()
+
+    db.close()

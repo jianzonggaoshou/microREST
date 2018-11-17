@@ -70,7 +70,23 @@ def create_user():
         content = 'success add!'
         return jsonify({'status': content}), 201
     else:
+        abort(409)
+
+
+@app.route('/api/v1/users', methods=['DELETE'])
+def delete_user():
+    if not request.json or not ('username' in request.json):
         abort(400)
+
+    user = request.json['username']
+    logging.debug(user)
+    result_bool = sqlLib.del_user(user)
+    logging.debug(result_bool)
+    if result_bool:
+        content = 'success delete!'
+        return jsonify({'status': content}), 200
+    else:
+        abort(404)
 
 
 if __name__ == '__main__':
